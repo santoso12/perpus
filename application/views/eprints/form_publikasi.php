@@ -58,6 +58,16 @@
 				</select>
 			  </div>
 			</div>
+			<div class="form-group">
+			  <label class="col-sm-2 control-label">Status Draft Artikel</label>
+
+			  <div class="col-sm-10">
+				<select name="status_draft_artikel" class="form-control">
+					<option value="1">Submitted</option>
+					<option value="2">Accepted</option>
+				</select>
+			  </div>
+			</div>
 		  </div>
 		  <!-- /.box-body -->
 		  <div class="box-footer">
