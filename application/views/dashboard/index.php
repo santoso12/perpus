@@ -20,7 +20,7 @@
 	<div class="box-body">
 		Apakah anda sudah melakukan publikasi karya ilmiah dalam bentuk jurnal atau prosiding?<br>
 		
-		<a href="<?php echo site_url('eprints/publikasi'); ?>" class="btn btn-primary">Ya</a>
+		<a href="<?php echo site_url('publikasi/create'); ?>" class="btn btn-primary">Ya</a>
 		<a href="<?php echo site_url('eprints/create_account'); ?>" class="btn btn-primary">Tidak</a>
 	</div>
 <!-- /.box-body -->

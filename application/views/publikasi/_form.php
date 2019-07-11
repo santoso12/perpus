@@ -15,34 +15,37 @@
 		  <h3 class="box-title"></h3>
 		</div>
 		<!-- form start -->
-		<form class="form-horizontal" action="<?php echo site_url('eprints/publikasi') ?>" method="post">
+		<form class="form-horizontal" action="<?php echo site_url('publikasi/create') ?>" method="post" enctype="multipart/form-data">
 		  <div class="box-body">
 			<div class="form-group">
-			  <label class="col-sm-2 control-label">Judul Publikasi</label>
+			  <label class="col-sm-2 control-label">Judul Publikasi*</label>
 
 			  <div class="col-sm-10">
-				<input type="text" name="judul" class="form-control" value="" placeholder="Judul Publikasi">
+				<input type="text" name="judul" class="form-control <?php echo form_error('judul') ? 'is-invalid':'' ?>" value="" placeholder="Judul Publikasi">
+				<div class="invalid-feedback">
+					<?php echo form_error('judul') ?>
+				</div>
 			  </div>
 			</div>
 			<div class="form-group">
 			  <label class="col-sm-2 control-label">Jenis</label>
 
 			  <div class="col-sm-10">
-				<input type="text" class="form-control" name="jenis" placeholder="" required>
+				<input type="text" class="form-control" name="jenis" placeholder="" >
 			  </div>
 			</div>
 			<div class="form-group">
 			  <label class="col-sm-2 control-label">Publisher</label>
 
 			  <div class="col-sm-10">
-				<input type="text" name="publisher" class="form-control" placeholder=""  required>
+				<input type="text" name="publisher" class="form-control" placeholder=""  >
 			  </div>
 			</div>
 			<div class="form-group">
 			  <label class="col-sm-2 control-label">Tanggal Submission</label>
 
 			  <div class="col-sm-10">
-				<input type="date" class="form-control" name="tanggal_submission" value="" placeholder="" required>
+				<input type="date" class="form-control" name="tanggal_submission" value="" placeholder="" >
 			  </div>
 			</div>
 			<div class="form-group">
@@ -72,7 +75,7 @@
 			  <label class="col-sm-2 control-label">Upload Bukti Submission</label>
 
 			  <div class="col-sm-10">
-				<input type="file" name="file_submission" class="form-control" placeholder=""  required>
+				<input type="file" name="file_submission" class="form-control" placeholder=""  >
 			  </div>
 			</div>
 			
@@ -80,7 +83,7 @@
 			  <label class="col-sm-2 control-label">Upload File Publikasi</label>
 
 			  <div class="col-sm-10">
-				<input type="file" name="file_publikasi" class="form-control" placeholder=""  required>
+				<input type="file" name="file_publikasi" class="form-control" placeholder=""  >
 			  </div>
 			</div>
 			

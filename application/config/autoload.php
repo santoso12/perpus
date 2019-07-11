@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('eprints_m', 'ref_jenis_publikasi');
+$autoload['model'] = array('eprints_m', 'ref_jenis_publikasi', 'publikasi_m');
