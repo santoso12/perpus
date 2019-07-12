@@ -6,6 +6,7 @@ class Publikasi_m extends CI_Model {
     private $_table = "publikasi";
 	
 	public $id;
+	public $id_user;
 	public $id_jenis_publikasi;
 	public $jenis;
 	public $judul;

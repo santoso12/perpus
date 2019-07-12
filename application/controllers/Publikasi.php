@@ -16,8 +16,9 @@ class Publikasi extends CI_Controller {
 
     public function index()
     {
-        $data["products"] = $this->product_model->getAll();
-        $this->load->view("admin/product/list", $data);
+        $data["publikasi"] = $this->publikasi_m->getAll();
+        $data['content'] = "publikasi/index.php";
+		$this->load->view('template', $data);
     }
 
     public function create()
@@ -27,7 +28,7 @@ class Publikasi extends CI_Controller {
         $validation->set_rules($publikasi->rules());
 
         if ($validation->run()) {
-            $product->save();
+            $publikasi->save();
             $this->session->set_flashdata('success', 'Berhasil disimpan');
         }
 		

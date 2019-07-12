@@ -5,7 +5,7 @@
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="<?php echo site_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-		<li class="active">Create Eprints Account</li>
+		<li class="active">Create Publikasi</li>
 	</ol>
 </section>
 <!-- Main content -->
