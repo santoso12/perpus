@@ -59,10 +59,17 @@ class Publikasi_m extends CI_Model {
 
     public function save()
     {
+		$now = date("Y-m-d H:i:s");
+		
         $post = $this->input->post();
+        $this->id_jenis_publikasi = $post["id_jenis_publikasi"];
         $this->judul = $post["judul"];
         $this->jenis = $post["jenis"];
         $this->publisher = $post["publisher"];
+        $this->tanggal_submission = $post["tanggal_submission"];
+        $this->status_draft_artikel = $post["status_draft_artikel"];
+        $this->create_date = $now;
+        $this->create_ip = $this->input->ip_address();
         $this->db->insert($this->_table, $this);
     }
 

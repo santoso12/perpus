@@ -18,13 +18,21 @@
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body">
-		Apakah anda sudah melakukan publikasi karya ilmiah dalam bentuk jurnal atau prosiding?<br>
+		<p style="font-size:18px;">Apakah anda sudah melakukan publikasi karya ilmiah dalam bentuk jurnal atau prosiding?</p><br>
 		
-		<a href="<?php echo site_url('publikasi/create'); ?>" class="btn btn-primary">Ya</a>
-		<a href="<?php echo site_url('eprints/create_account'); ?>" class="btn btn-primary">Tidak</a>
+		<a href="<?php echo site_url('publikasi/create'); ?>" class="btn btn-primary">
+			Sudah
+		</a>
+		&nbsp;
+		<a href="<?php echo site_url('eprints/create_account'); ?>" class="btn btn-warning">Belum</a>
 	</div>
 <!-- /.box-body -->
 </div>
 
 </section>
+<?php /* echo "coba: " .  $this->session->userdata('email'); 
+var_dump($this->session->userdata()); */
+
+?>
+
 <!-- /.content -->

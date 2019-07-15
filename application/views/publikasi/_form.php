@@ -52,7 +52,7 @@
 			  <label class="col-sm-2 control-label">Jenis Publikasi</label>
 
 			  <div class="col-sm-10">
-				<select name="jenis_publikasi" class="form-control">
+				<select name="id_jenis_publikasi" class="form-control">
 					<option value=""></option>
 					<?php foreach ($jenis_publikasi as $data) { ?>
 						<option value="<?= $data->id?>"><?= $data->nama?></option>
