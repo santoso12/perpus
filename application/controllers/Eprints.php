@@ -264,14 +264,4 @@ class Eprints extends CI_Controller {
 			redirect('saml/login');
 		}
 	}
-	
-	public function publikasi(){
-		if($this->session->userdata('login')){
-			$data['content'] = "eprints/form_publikasi.php";
-			$data['jenis_publikasi'] = $this->ref_jenis_publikasi->get_jenis_publikasi();
-			$this->load->view('template', $data);
-		}else{
-			redirect('saml/login');
-		}
-	}
 }
