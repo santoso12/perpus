@@ -6,7 +6,7 @@ class Publikasi_m extends CI_Model {
     private $_table = "publikasi";
 	
 	public $id;
-	public $id_user;
+	public $userid;
 	public $id_jenis_publikasi;
 	public $jenis;
 	public $judul;
@@ -61,6 +61,9 @@ class Publikasi_m extends CI_Model {
     {
 		$now = date("Y-m-d H:i:s");
 		
+		$email = $this->session->userdata('email');
+		$user = $this->db->get_where("user", ["username" => $email])->row();
+		
         $post = $this->input->post();
         $this->id_jenis_publikasi = $post["id_jenis_publikasi"];
         $this->judul = $post["judul"];
@@ -69,6 +72,7 @@ class Publikasi_m extends CI_Model {
         $this->tanggal_submission = $post["tanggal_submission"];
         $this->status_draft_artikel = $post["status_draft_artikel"];
         $this->create_date = $now;
+        $this->userid = $user->userid;
         $this->create_ip = $this->input->ip_address();
         $this->db->insert($this->_table, $this);
     }
