@@ -14,15 +14,29 @@ class Publikasi extends CI_Controller {
 		}
 	} 
 
-    public function index()
+    /* public function index()
     {
         $data["publikasi"] = $this->publikasi_m->getAll();
         $data['content'] = "publikasi/index.php";
 		$this->load->view('template', $data);
+    } */
+	
+    public function cek()
+    {
+		//cek apakah sudah punya akun di eprint
+		$username = $this->session->userdata('email');
+		$check_account = $this->eprints_m->check_account($username);
+		if(!$check_account){
+			$data['username'] = $username;
+			$data['content'] = "eprints/create_account.php";
+			$this->load->view('template', $data);
+		} else {
+			redirect('publikasi/create');
+		}
     }
 
     public function create()
-    {
+    {		
         $publikasi = $this->publikasi_m;
         $validation = $this->form_validation;
         $validation->set_rules($publikasi->rules());

@@ -20,7 +20,7 @@
 	<div class="box-body">
 		<p style="font-size:18px;">Apakah anda sudah melakukan publikasi karya ilmiah dalam bentuk jurnal atau prosiding?</p><br>
 		
-		<a href="<?php echo site_url('publikasi/create'); ?>" class="btn btn-primary">
+		<a href="<?php echo site_url('publikasi/cek'); ?>" class="btn btn-primary">
 			Sudah
 		</a>
 		&nbsp;
@@ -30,9 +30,5 @@
 </div>
 
 </section>
-<?php /* echo "coba: " .  $this->session->userdata('email'); 
-var_dump($this->session->userdata()); */
-
-?>
 
 <!-- /.content -->
