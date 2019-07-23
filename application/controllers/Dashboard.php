@@ -21,6 +21,9 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata('login')){
+			
+			$status_user = $this->user_status_publikasi_m->getById($id);
+			
 			$data['content'] = "dashboard/index.php";
 			$this->load->view('template', $data);
 		}else{

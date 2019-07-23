@@ -39,16 +39,22 @@
             // query user berdasarkan email
             $email = $attributes['email'][0];
             $nama = $attributes['nama'][0];
-            /*
-			$user = $this->user_model->getByEmail($email);
+            $username = $attributes['username'][0];
+            
+			$user = $this->user_publikasi_m->getByUsername($username);
             if ($user == null) { // kalau di database belum ada buat baru
+				
                 $data = [
+                    'username' => $username,
                     'email' => $email,
                     'nama' => $nama,
+                    'no_hp' => $attributes['no_hp'][0],
+                    'alamat' => $attributes['alamat'][0],
+                    'create_date' => date("Y-m-d H:i:s"),
                 ];
-                $user = $this->user_model->create($data);
+                $user = $this->user_publikasi_m->create($data);
             }
-			*/
+			
             // login kan user
             $this->session->set_userdata([
                 'login' => true,
