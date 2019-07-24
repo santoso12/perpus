@@ -42,6 +42,7 @@
             $username = $attributes['username'][0];
             
 			$user = $this->user_publikasi_m->getByUsername($username);
+			
             if ($user == null) { // kalau di database belum ada buat baru
 				
                 $data = [
@@ -53,13 +54,18 @@
                     'create_date' => date("Y-m-d H:i:s"),
                 ];
                 $user = $this->user_publikasi_m->create($data);
-            }
+				$id_user = $user;
+            } else {
+				$id_user = $user->id;
+			}
 			
             // login kan user
             $this->session->set_userdata([
                 'login' => true,
                 'email' => $email,
                 'nama' => $nama,
+                'username' => $username,
+                'id_user' => $id_user,
             ]);
     
             // redirect user setelah login

@@ -7,6 +7,7 @@ class Publikasi_m extends CI_Model {
 	
 	public $id;
 	public $userid;
+	public $id_user;
 	public $id_jenis_publikasi;
 	public $jenis;
 	public $judul;
@@ -55,6 +56,11 @@ class Publikasi_m extends CI_Model {
     public function getById($id)
     {
         return $this->db->get_where($this->_table, ["id" => $id])->row();
+    }
+	
+    public function getByIdUser($id)
+    {
+        return $this->db->get_where($this->_table, ["id_user" => $id])->result();
     }
 
     public function save()

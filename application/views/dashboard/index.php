@@ -20,11 +20,11 @@
 	<div class="box-body">
 		<p style="font-size:18px;">Apakah anda sudah melakukan publikasi karya ilmiah dalam bentuk jurnal atau prosiding?</p><br>
 		
-		<a href="<?php echo site_url('publikasi/cek'); ?>" class="btn btn-primary">
+		<a href="<?php echo site_url('publikasi/sudah'); ?>" class="btn btn-primary">
 			Sudah
 		</a>
 		&nbsp;
-		<a href="<?php echo site_url('eprints/create_account'); ?>" class="btn btn-warning">Belum</a>
+		<a href="<?php echo site_url('publikasi/belum'); ?>" class="btn btn-warning">Belum</a>
 	</div>
 <!-- /.box-body -->
 </div>

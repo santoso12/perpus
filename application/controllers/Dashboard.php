@@ -21,10 +21,21 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		if($this->session->userdata('login')){
+			//var_dump($this->session->userdata('id_user'));exit;
+			$id_user = $this->session->userdata('id_user');
 			
-			$status_user = $this->user_status_publikasi_m->getById($id);
+			$status_user = $this->user_status_publikasi_m->getByIdUser($id_user);
 			
-			$data['content'] = "dashboard/index.php";
+			if ($status_user){
+				$status = $status_user->status_publikasi;
+				if($status == 1){
+					$data['content'] = "publikasi/index.php";
+				} else {
+					$data['content'] = "dashboard/index.php";
+				}
+			} else {
+				$data['content'] = "dashboard/index.php";
+			}
 			$this->load->view('template', $data);
 		}else{
 			redirect('saml/login');

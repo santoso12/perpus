@@ -5,9 +5,9 @@ class User_Status_Publikasi_m extends CI_Model {
 	
     private $_table = "user_status_publikasi";
 
-    public function getById($id)
+    public function getByIdUser($id_user)
     {
-        return $this->db->get_where($this->_table, ["id" => $id])->row();
+        return $this->db->get_where($this->_table, ["id_user" => $id_user])->row();
     }
 
     public function create($data)
