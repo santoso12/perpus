@@ -38,6 +38,24 @@ class Publikasi extends CI_Controller {
 			$user = $this->user_status_publikasi_m->create($data);
 		} 
 		redirect('publikasi/index');
+    }	
+	
+    public function belum()
+    {
+		$id_user = $this->session->userdata('id_user');
+		//cek apakah sudah ada datanya
+		$cek = $this->user_status_publikasi_m->getByIdUser($id_user);
+		
+		//jika belum maka insert data baru
+		if(!$cek){
+			$data = [
+				'id_user' => $id_user,
+				'status_publikasi' => 2,
+				'create_date' => date("Y-m-d H:i:s"),
+			];
+			$user = $this->user_status_publikasi_m->create($data);
+		} 
+		redirect('eprints/create_account');
     }
 
     public function create()

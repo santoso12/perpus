@@ -31,7 +31,7 @@ class Dashboard extends CI_Controller {
 				if($status == 1){
 					$data['content'] = "publikasi/index.php";
 				} else {
-					$data['content'] = "dashboard/index.php";
+					redirect('eprints/index', 'refresh');
 				}
 			} else {
 				$data['content'] = "dashboard/index.php";

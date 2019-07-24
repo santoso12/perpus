@@ -1,7 +1,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<h1>
-		Eprints
+		Membuat Akun Eprints
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="<?php echo site_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
