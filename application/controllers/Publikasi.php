@@ -17,6 +17,7 @@ class Publikasi extends CI_Controller {
     public function index()
     {
 		$id_user = $this->session->userdata('id_user');
+        $data["account"] = $this->user_publikasi_m->getById($id_user);
         $data["publikasi"] = $this->publikasi_m->getByIdUser($id_user);
         $data['content'] = "publikasi/index.php";
 		$this->load->view('template', $data);

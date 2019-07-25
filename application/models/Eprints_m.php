@@ -32,6 +32,13 @@ class Eprints_m extends CI_Model {
 			return $query;
 		}
 		
+		public function get_account_by_id($userid){
+			$this->db->where('userid', $userid);
+			$query = $this->db->get('user');
+			
+			return $query;
+		}
+		
 		function get_last_userid(){
 			$query = $this->db->query("SELECT MAX(userid) id FROM user");
 			$row = $query->row();

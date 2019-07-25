@@ -1,11 +1,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<h1>
-		Eprints
+		Profil
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="<?php echo site_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-		<li class="active">Eprints Account</li>
+		<li class="active">Your Account</li>
 	</ol>
 </section>
 <!-- Main content -->
@@ -15,52 +15,48 @@
 		
 			<div class="box box-info">
 				<div class="box-header with-border">
-					<h3 class="box-title">Account</h3>
+					<h3 class="box-title">Your Account</h3>
 				</div>
 				<!-- /.box-header -->
-				<?php
-					$acc = $account->row();
-				?>
 				<div class="box-body">
-					<div class="col-sm-2">
-						User ID
-					</div>
-					<div class="col-sm-10">
-						: <?php echo $acc->userid; ?>
-					</div>
 					
 					<div class="col-sm-2">
 						Username
 					</div>
 					<div class="col-sm-10">
-						: <?php echo $acc->username; ?>
+						: <?php echo $account->username; ?>
 					</div>
 					
 					<div class="col-sm-2">
 						Nama
 					</div>
 					<div class="col-sm-10">
-						: <?php echo $acc->name_family; ?>
+						: <?php echo $account->nama; ?>
 					</div>
 					
 					<div class="col-sm-2">
 						Email
 					</div>
 					<div class="col-sm-10">
-						: <?php echo $acc->email; ?>
+						: <?php echo $account->email; ?>
+					</div>
+					
+					<div class="col-sm-2">
+						No. Hp.
+					</div>
+					<div class="col-sm-10">
+						: <?php echo $account->no_hp; ?>
 					</div>
 					
 					<div class="col-sm-2">
 						Alamat
 					</div>
 					<div class="col-sm-10">
-						: <?php echo $acc->address; ?>
+						: <?php echo $account->alamat; ?>
 					</div>
 				</div>
 				<div class="box-footer">
-					<a href="<?php echo site_url('eprints/edit_account/'.$acc->username) ?>">
-						<button class="btn btn-info pull-right">Edit</button>
-					</a>
+					
 				</div>
 				<!-- /.box-body -->
 			</div>
@@ -68,14 +64,26 @@
 			
 			<div class="box box-info">
 				<div class="box-header with-border">
-					<h3 class="box-title">Item</h3>
+					<h3 class="box-title">Publikasi</h3>
 				</div>
 				<!-- /.box-header -->
-				<?php
-					if($item->num_rows() > 0){
-					$itm = $item->row();
-				?>
 				<div class="box-body">
+				
+					<table class="table">
+						<tr>
+							<th>NO</th>
+							<th>JUDUL</th>
+						</tr>
+						<?php 
+							$i=1;
+							foreach($publikasi as $data){ ?>
+							<tr>
+								<td><?= $i;?> </td>
+								<td><?= $data->judul;?> </td>
+							</tr>					
+						<?php $i++; } ?>
+					</table>
+				
 					<div class="col-sm-2">
 						Status
 					</div>
@@ -117,42 +125,8 @@
 					<div class="col-sm-10">
 						: <?php echo $itm->department." ".$itm->institution; ?>
 					</div>
-					
-					<div class="col-sm-2">
-						Date Deposited
-					</div>
-					<div class="col-sm-10">
-						: 
-						<?php 
-							if($itm->eprint_status == 'archive'){
-								$jd=gregoriantojd($itm->datestamp_month,$itm->datestamp_day,$itm->datestamp_year);
-								echo $itm->datestamp_day." ".jdmonthname($jd,0)." ".$itm->datestamp_year." ".($itm->datestamp_hour + 7) .":".$itm->datestamp_minute; 
-							}else{
-								echo "Belum Deposit";
-							}
-						?>
-					</div>
-					
-					<div class="col-sm-2">
-						Last Modified
-					</div>
-					<div class="col-sm-10">
-						: 
-						<?php 
-							$jd=gregoriantojd($itm->lastmod_month,$itm->lastmod_day,$itm->lastmod_year);
-							echo $itm->lastmod_day." ".jdmonthname($jd,0)." ".$itm->lastmod_year." ".($itm->lastmod_hour + 7) .":".$itm->lastmod_minute; 
-						?>
-					</div>
-					
-					<div class="col-sm-2">
-						URI
-					</div>
-					<div class="col-sm-10">
-						: <a href="https://eprints.uns.ac.id/id/eprint/<?php echo $itm->eprintid; ?>" target="_blank">https://eprints.uns.ac.id/id/eprint/<?php echo $itm->eprintid; ?></a>
-					</div>
-				</div>
-				<?php } ?>
 				<!-- /.box-body -->
+				</div>
 			</div>
 			<!-- /.box -->
 		</div>

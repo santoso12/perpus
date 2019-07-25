@@ -56,9 +56,23 @@
 					<div class="col-sm-10">
 						: <?php echo $acc->address; ?>
 					</div>
+					
+					<div class="col-sm-2">
+						Status Publikasi
+					</div>
+					<div class="col-sm-10">
+						: <?php
+							$status = $status_publikasi->status_publikasi;
+							if($status == 1){
+								echo "Sudah pernah publikasi";
+							} else {
+								echo "Eprints";
+							}
+						?>
+					</div>
 				</div>
 				<div class="box-footer">
-					<a href="<?php echo site_url('eprints/edit_account/'.$acc->username) ?>">
+					<a href="<?php echo site_url('eprints/edit_account/'.$acc->userid) ?>">
 						<button class="btn btn-info pull-right">Edit</button>
 					</a>
 				</div>

@@ -29,11 +29,13 @@ class Eprints extends CI_Controller {
 	{
 		if($this->session->userdata('login')){
 			$username = $this->session->userdata('email');
+			$id_user = $this->session->userdata('id_user');
 			
 			$check_account = $this->eprints_m->check_account($username);
 			if($check_account){
 				$data['account'] = $this->eprints_m->get_account($username);
 				$data['item'] = $this->eprints_m->get_item($username);
+				$data['status_publikasi'] = $this->user_status_publikasi_m->getByIdUser($id_user);
 				$data['content'] = "eprints/account.php";
 			}else{
 				$data['username'] = $username;
@@ -189,20 +191,24 @@ class Eprints extends CI_Controller {
 	
 	public function create_account()
 	{
-		if($this->session->userdata('login')){			
-			$password = $this->input->post("password");
-			$confirm_password = $this->input->post("confirm_password");
-			if($password == $confirm_password){
-				$create = $this->eprints_m->create_account();
-				if($create){
-					$this->session->set_flashdata('msg_sukses', 'Akun Eprints berhasil dibuat.');
-					redirect('eprints');
+		if($this->session->userdata('login')){
+			if ($_POST){
+				$password = $this->input->post("password");
+				$confirm_password = $this->input->post("confirm_password");
+				if($password == $confirm_password){
+					$create = $this->eprints_m->create_account();
+					if($create){
+						$this->session->set_flashdata('msg_sukses', 'Akun Eprints berhasil dibuat.');
+						redirect('eprints');
+					}else{
+						$this->session->set_flashdata('msg_gagal', 'Akun Eprints gagal dibuat.');
+						redirect('eprints');
+					}
 				}else{
-					$this->session->set_flashdata('msg_gagal', 'Akun Eprints gagal dibuat.');
+					$this->session->set_flashdata('msg_gagal', 'Password dan Confirm Password harus sama.');
 					redirect('eprints');
 				}
-			}else{
-				$this->session->set_flashdata('msg_gagal', 'Password dan Confirm Password harus sama.');
+			} else {
 				redirect('eprints');
 			}
 
@@ -211,10 +217,10 @@ class Eprints extends CI_Controller {
 		}
 	}
 	
-	public function edit_account($username)
+	public function edit_account($userid)
 	{
 		if($this->session->userdata('login')){
-			$data['account'] = $this->eprints_m->get_account($username);
+			$data['account'] = $this->eprints_m->get_account_by_id($userid);
 			$data['content'] = "eprints/edit_account.php";
 			$this->load->view('template', $data);
 		}else{
