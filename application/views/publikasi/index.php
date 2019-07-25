@@ -65,14 +65,21 @@
 			<div class="box box-info">
 				<div class="box-header with-border">
 					<h3 class="box-title">Publikasi</h3>
+					
+					<a href="/publikasi/create" class="btn btn-primary pull-right">
+					<i class="fa fa-plus"></i> Tambah Publikasi</a>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
 				
-					<table class="table">
+					<table class="table table-stripped table-bordered">
 						<tr>
-							<th>NO</th>
-							<th>JUDUL</th>
+							<th style="width:25px;">No.</th>
+							<th>Judul</th>
+							<th>Status Draft</th>
+							<th>Verifikasi</th>
+							<th>Status</th>
+							<th>Action</th>
 						</tr>
 						<?php 
 							$i=1;
@@ -80,51 +87,29 @@
 							<tr>
 								<td><?= $i;?> </td>
 								<td><?= $data->judul;?> </td>
+								<td><?php
+										if($data->status_draft_artikel == 1){
+											echo "Submited";
+										} else {
+											echo "Accepted";
+										}
+									?> 
+								</td>
+								<td><?= $data->status_verifikasi;?> </td>
+								<td><?php
+										if($data->is_approved == 1){
+											echo "Approved";
+										} else {
+											echo "Diusulkan";
+										}
+									?> 
+								
+								</td>
+								<td><a href="publikasi/view/<?= $data->id;?>" class="btn btn-sm btn-primary">Detail</a></td>
 							</tr>					
 						<?php $i++; } ?>
 					</table>
-				
-					<div class="col-sm-2">
-						Status
-					</div>
-					<div class="col-sm-10">
-						: <?php echo $itm->eprint_status; ?>
-					</div>
-					
-					<div class="col-sm-2">
-						Item ID
-					</div>
-					<div class="col-sm-10">
-						: <?php echo $itm->eprintid; ?>
-					</div>
-					
-					<div class="col-sm-2">
-						Type
-					</div>
-					<div class="col-sm-10">
-						: <?php echo $itm->type; ?>
-					</div>
-					
-					<div class="col-sm-2">
-						Judul
-					</div>
-					<div class="col-sm-10">
-						: <?php echo $itm->title; ?>
-					</div>
-					
-					<div class="col-sm-2">
-						Abstract
-					</div>
-					<div class="col-sm-10">
-						: <?php echo $itm->abstract; ?>
-					</div>
-					
-					<div class="col-sm-2">
-						Institution
-					</div>
-					<div class="col-sm-10">
-						: <?php echo $itm->department." ".$itm->institution; ?>
-					</div>
+			
 				<!-- /.box-body -->
 				</div>
 			</div>
