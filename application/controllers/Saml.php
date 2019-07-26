@@ -34,7 +34,7 @@
     
             // baca response dari sso, ambil email lalu insert ke database jika belum ada. setelah itu login kan user tersebut.
             $attributes = $this->saml->getAttributes();
-            // var_dump($attributes); exit; // cek attribute dengan var_dump
+             //var_dump($attributes); exit; // cek attribute dengan var_dump
     
             // query user berdasarkan email
             $email = $attributes['email'][0];
@@ -45,18 +45,29 @@
 			
             if ($user == null) { // kalau di database belum ada buat baru
 				
+				$level = $attributes['level'][0];
+				if($level == "student") {
+					$id_jenis_user = 2;
+				} else {
+					$id_jenis_user = '';
+				}
+				
                 $data = [
                     'username' => $username,
                     'email' => $email,
                     'nama' => $nama,
                     'no_hp' => $attributes['no_hp'][0],
                     'alamat' => $attributes['alamat'][0],
+                    'level' => $level,
+                    'id_jenis_user' => $id_jenis_user,
                     'create_date' => date("Y-m-d H:i:s"),
                 ];
                 $user = $this->user_publikasi_m->create($data);
 				$id_user = $user;
+				$jenis_user = $id_jenis_user;
             } else {
 				$id_user = $user->id;
+				$jenis_user = $user->id_jenis_user;
 			}
 			
             // login kan user
@@ -66,6 +77,7 @@
                 'nama' => $nama,
                 'username' => $username,
                 'id_user' => $id_user,
+                'jenis_user' => $jenis_user,
             ]);
     
             // redirect user setelah login

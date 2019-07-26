@@ -75,7 +75,7 @@ class Publikasi extends CI_Controller {
 		$this->load->view('template', $data);
     }
 
-    public function edit($id = null)
+   /*  public function edit($id = null)
     {
         if (!isset($id)) redirect('admin/products');
        
@@ -92,14 +92,22 @@ class Publikasi extends CI_Controller {
         if (!$data["product"]) show_404();
         
         $this->load->view("admin/product/edit_form", $data);
-    }
+    } */
+	
+	public function view($id = null){
+		
+		$id_user = $this->session->userdata('id_user');
+		
+		$data["publikasi"] = $publikasi_m->getById($id);
+		
+	}
 
-    public function delete($id=null)
+   /*  public function delete($id=null)
     {
         if (!isset($id)) show_404();
         
         if ($this->product_model->delete($id)) {
             redirect(site_url('admin/products'));
         }
-    }
+    } */
 }
