@@ -61,6 +61,12 @@ class Publikasi_m extends CI_Model {
     public function getByIdUser($id)
     {
         return $this->db->get_where($this->_table, ["id_user" => $id])->result();
+    }	
+	
+	//cek apakah ada data publikasi yg sudah di approve 
+    public function cekSudahUpload($id)
+    {
+        return $this->db->get_where($this->_table, ["id_user" => $id, "is_approved" => 1])->result();
     }
 
     public function save()

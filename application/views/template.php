@@ -104,7 +104,7 @@
         <li class="header">MENU UTAMA</li>
         <li class="treeview">
           <a href="<?php echo site_url('dashboard'); ?>">
-            <i class="fa fa-dashboard"></i> <span>Home</span>
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         <li class="treeview">
           <a href="#">

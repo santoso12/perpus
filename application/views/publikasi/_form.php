@@ -27,6 +27,7 @@
 				</div>
 			  </div>
 			</div>
+			<?php /* 
 			<div class="form-group">
 			  <label class="col-sm-2 control-label">Jenis</label>
 
@@ -34,6 +35,7 @@
 				<input type="text" class="form-control" name="jenis" placeholder="" >
 			  </div>
 			</div>
+				 */?>
 			<div class="form-group">
 			  <label class="col-sm-2 control-label">Publisher</label>
 

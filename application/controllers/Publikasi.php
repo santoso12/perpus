@@ -19,6 +19,8 @@ class Publikasi extends CI_Controller {
 		$id_user = $this->session->userdata('id_user');
         $data["account"] = $this->user_publikasi_m->getById($id_user);
         $data["publikasi"] = $this->publikasi_m->getByIdUser($id_user);
+		$data['status_publikasi'] = $this->user_status_publikasi_m->getByIdUser($id_user);
+		$data['cekSudahUpload'] = $this->publikasi_m->cekSudahUpload($id_user);
         $data['content'] = "publikasi/index.php";
 		$this->load->view('template', $data);
     } 
@@ -110,4 +112,26 @@ class Publikasi extends CI_Controller {
             redirect(site_url('admin/products'));
         }
     } */
+	
+	public function edit_status_publikasi($id_user)
+	{
+		if($id_user == $this->session->userdata('id_user')){
+			$data['status'] = $this->user_status_publikasi_m->getByIdUser($id_user);
+			$data['content'] = "publikasi/_form-status-publikasi.php";
+			$this->load->view('template', $data);
+		}
+	}
+	
+	public function Update_status_publikasi()
+	{
+		$id_user = $this->session->userdata('id_user');
+		$update = $this->user_status_publikasi_m->update($id_user);
+		if($update){
+			$this->session->set_flashdata('msg_sukses', 'Update Success.');
+			redirect('dashboard');
+		}else{
+			$this->session->set_flashdata('msg_gagal', 'Update Gagal.');
+			redirect('publikasi/edit_status_publikasi/'.$id_user);
+		}
+	}
 }

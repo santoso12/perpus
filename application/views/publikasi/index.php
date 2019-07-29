@@ -54,6 +54,24 @@
 					<div class="col-sm-10">
 						: <?php echo $account->alamat; ?>
 					</div>
+					
+					<div class="col-sm-2">
+						Status Publikasi
+					</div>
+					<div class="col-sm-10">
+						: <?php
+							$status = $status_publikasi->status_publikasi;
+							if($status == 1){
+								echo "Sudah pernah publikasi";
+							} else {
+								echo "Eprints";
+							}
+							
+						if($cekSudahUpload == null){
+						?>
+						<a href="publikasi/edit_status_publikasi/<?= $account->id?>">(<i class="fa fa-edit"></i> Edit )</a>
+						<?php } ?>
+					</div>
 				</div>
 				<div class="box-footer">
 					
