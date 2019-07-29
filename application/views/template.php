@@ -106,20 +106,31 @@
           <a href="<?php echo site_url('dashboard'); ?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Eprints</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <?php /* <li><a href="<?php echo site_url('eprints') ?>"><i class="fa fa-circle-o"></i> Account</a></li> */ ?>
-            <li><a href="<?php echo site_url('eprints/panduan') ?>"><i class="fa fa-circle-o"></i> Panduan Upload Mandiri</a></li>
-			 <li><a href="#"><i class="fa fa-circle-o"></i> Status</a></li>
-          </ul>
-        </li>
+		</li>
+		<?php if ($this->session->userdata('login') && ($this->session->userdata('jenis_user')==1)){ ?>
+		
+			<li class="treeview">
+			  <a href="<?php echo site_url('admin/publikasi'); ?>">
+				<i class="fa fa-file"></i> <span>Publikasi</span>
+			  </a>
+			</li>
+		<?php } else { ?>
+		
+			<li class="treeview">
+			  <a href="#">
+				<i class="fa fa-files-o"></i>
+				<span>Eprints</span>
+				<span class="pull-right-container">
+				  <i class="fa fa-angle-left pull-right"></i>
+				</span>
+			  </a>
+			  <ul class="treeview-menu">
+				<?php /* <li><a href="<?php echo site_url('eprints') ?>"><i class="fa fa-circle-o"></i> Account</a></li> */ ?>
+				<li><a href="<?php echo site_url('eprints/panduan') ?>"><i class="fa fa-circle-o"></i> Panduan Upload Mandiri</a></li>
+				 <li><a href="#"><i class="fa fa-circle-o"></i> Status</a></li>
+			  </ul>
+			</li>
+		<?php } ?>
 		 <li class="treeview">
           <a href="<?php echo site_url('saml/logout'); ?>">
             <i class="fa fa-power-off"></i>

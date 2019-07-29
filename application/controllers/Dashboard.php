@@ -24,6 +24,10 @@ class Dashboard extends CI_Controller {
 			//var_dump($this->session->userdata('id_user'));exit;
 			$id_user = $this->session->userdata('id_user');
 			
+			if($this->session->userdata('jenis_user')==1){
+				redirect('Admin');
+			}
+			
 			$status_user = $this->user_status_publikasi_m->getByIdUser($id_user);
 			
 			if ($status_user){
