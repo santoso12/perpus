@@ -12,6 +12,7 @@ class Admin extends CI_Controller {
 		if(!($this->session->userdata('login') && ($this->session->userdata('jenis_user')==1))){
 			redirect('saml/login');
 		}
+		$this->load->model('Publikasi_model');
 	} 
 
     public function index()
@@ -22,113 +23,99 @@ class Admin extends CI_Controller {
 		$this->load->view('template', $data);
     } 
 	
-    public function sudah()
-    {
-		$id_user = $this->session->userdata('id_user');
-		//cek apakah sudah ada datanya
-		$cek = $this->user_status_publikasi_m->getByIdUser($id_user);
-		
-		//jika belum maka insert data baru
-		if(!$cek){
-			$data = [
-				'id_user' => $id_user,
-				'status_publikasi' => 1,
-				'create_date' => date("Y-m-d H:i:s"),
-			];
-			$user = $this->user_status_publikasi_m->create($data);
-		} 
-		redirect('publikasi/index');
-    }	
-	
-    public function belum()
-    {
-		$id_user = $this->session->userdata('id_user');
-		//cek apakah sudah ada datanya
-		$cek = $this->user_status_publikasi_m->getByIdUser($id_user);
-		
-		//jika belum maka insert data baru
-		if(!$cek){
-			$data = [
-				'id_user' => $id_user,
-				'status_publikasi' => 2,
-				'create_date' => date("Y-m-d H:i:s"),
-			];
-			$user = $this->user_status_publikasi_m->create($data);
-		} 
-		redirect('eprints/create_account');
-    }
-
-    public function create()
-    {		
-        $publikasi = $this->publikasi_m;
-        $validation = $this->form_validation;
-        $validation->set_rules($publikasi->rules());
-
-        if ($validation->run()) {
-            $publikasi->save();
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
-        }
-		
-		$data['content'] = "publikasi/_form.php";
-		$data['jenis_publikasi'] = $this->ref_jenis_publikasi->get_jenis_publikasi();
-		$this->load->view('template', $data);
-    }
-
-   /*  public function edit($id = null)
-    {
-        if (!isset($id)) redirect('admin/products');
-       
-        $product = $this->product_model;
-        $validation = $this->form_validation;
-        $validation->set_rules($product->rules());
-
-        if ($validation->run()) {
-            $product->update();
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
-        }
-
-        $data["product"] = $product->getById($id);
-        if (!$data["product"]) show_404();
+	//menampilkan data publikasi
+    function publikasi(){
+        $q = urldecode($this->input->get('q', TRUE));
+        $start = intval($this->input->get('start'));
         
-        $this->load->view("admin/product/edit_form", $data);
-    } */
-	
-	public function view($id = null){
-		
-		$id_user = $this->session->userdata('id_user');
-		
-		$data["publikasi"] = $publikasi_m->getById($id);
-		
-	}
-
-   /*  public function delete($id=null)
-    {
-        if (!isset($id)) show_404();
-        
-        if ($this->product_model->delete($id)) {
-            redirect(site_url('admin/products'));
+        if ($q <> '') {
+            $config['base_url'] = base_url() . 'admin/publikasi.html?q=' . urlencode($q);
+            $config['first_url'] = base_url() . 'admin/publikasi.html?q=' . urlencode($q);
+        } else {
+            $config['base_url'] = base_url() . 'admin/publikasi.html';
+            $config['first_url'] = base_url() . 'admin/publikasi.html';
         }
-    } */
+
+        $config['per_page'] = 10;
+        $config['page_query_string'] = TRUE;
+        $config['total_rows'] = $this->Publikasi_model->total_rows($q);
+        $publikasi_admin = $this->Publikasi_model->get_limit_data($config['per_page'], $start, $q);
+
+        $this->load->library('pagination');
+        $this->pagination->initialize($config);
+
+        $data = array(
+            'publikasi_admin_data' => $publikasi_admin,
+            'q' => $q,
+            'pagination' => $this->pagination->create_links(),
+            'total_rows' => $config['total_rows'],
+            'start' => $start,
+            'content' => 'admin/publikasi',
+        );
+        $this->load->view('template', $data);
+    }
 	
-	public function edit_status_publikasi($id_user)
+	//view detail Publikasi
+	public function view($id) 
+    {
+        $row = $this->Publikasi_model->get_by_id($id);
+        if ($row) {
+            $data = array(
+		'id' => $row->id,
+		'id_user' => $row->id_user,
+		'userid' => $row->userid,
+		'id_jenis_publikasi' => $row->id_jenis_publikasi,
+		'id_kategori_publikasi' => $row->id_kategori_publikasi,
+		'judul' => $row->judul,
+		'publisher' => $row->publisher,
+		'tanggal_submission' => $row->tanggal_submission,
+		'status_draft_artikel' => $row->status_draft_artikel,
+		'status_verifikasi' => $row->status_verifikasi,
+		'is_approved' => $row->is_approved,
+		'approved_date' => $row->approved_date,
+		'approved_by' => $row->approved_by,
+		'create_date' => $row->create_date,
+		'create_by' => $row->create_by,
+		'create_ip' => $row->create_ip,
+		'update_date' => $row->update_date,
+		'update_by' => $row->update_by,
+		'update_ip' => $row->update_ip,
+		'file_name' => $row->file_name,
+		'file_path' => $row->file_path,
+		'file_url' => $row->file_url,
+		'file_size' => $row->file_size,
+		'file_type' => $row->file_type,
+		'url_jurnal_seminar' => $row->url_jurnal_seminar,
+		'content' => 'admin/detail-publikasi',
+	    );
+            $this->load->view('template', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('admin/publikasi'));
+        }
+    }
+	
+	public function Approve($id)
 	{
-		if($id_user == $this->session->userdata('id_user')){
-			$data['status'] = $this->user_status_publikasi_m->getByIdUser($id_user);
-			$data['content'] = "publikasi/_form-status-publikasi.php";
-			$this->load->view('template', $data);
+		$update = $this->publikasi_m->approve($id);
+		if($update){
+			$this->session->set_flashdata('msg_sukses', 'Update Success.');
+			redirect('admin/publikasi');
+		}else{
+			$this->session->set_flashdata('msg_gagal', 'Update Gagal.');
+			redirect('admin/publikasi');
 		}
 	}
 	
-	public function Update_status_publikasi()
+	public function Tolak($id)
 	{
-		$id_user = $this->session->userdata('id_user');
-		$update = $this->user_status_publikasi_m->update($id_user);
+		$update = $this->publikasi_m->tolak($id);
 		if($update){
 			$this->session->set_flashdata('msg_sukses', 'Update Success.');
-			redirect('dashboard');
+			redirect('admin/publikasi');
 		}else{
 			$this->session->set_flashdata('msg_gagal', 'Update Gagal.');
-			redirect('publikasi/edit_status_publikasi/'.$id_user);
+			redirect('admin/publikasi');
 		}
 	}
 }

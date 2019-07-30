@@ -89,14 +89,28 @@ class Publikasi_m extends CI_Model {
         $this->db->insert($this->_table, $this);
     }
 
-    public function update()
-    {
-        $post = $this->input->post();
-        $this->id = $post["id"];
-        $this->judul = $post["judul"];
-        $this->jenis = $post["jenis"];
-        $this->publisher = $post["publisher"];
-        $this->db->update($this->_table, $this, array('id' => $post['id']));
+    public function approve($id)
+    {		
+		$data = array(
+			'approved_by' => $this->session->userdata('id_user'),
+			'approved_date' => date("Y-m-d H:i:s"),
+			'is_approved' => 1,
+		);
+		$this->db->where('id', $id);
+		$query = $this->db->update($this->_table, $data);
+		return $query;
+    }
+	
+    public function tolak($id)
+    {		
+		$data = array(
+			'approved_by' => $this->session->userdata('id_user'),
+			'approved_date' => date("Y-m-d H:i:s"),
+			'is_approved' => 2,
+		);
+		$this->db->where('id', $id);
+		$query = $this->db->update($this->_table, $data);
+		return $query;
     }
 
     public function delete($id)
