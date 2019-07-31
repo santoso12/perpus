@@ -40,7 +40,7 @@
 				<tr><td></td><td><a href="<?php echo site_url('publikasi_admin') ?>" class="btn btn-default">Cancel</a></td></tr>
 			</table>
 		 </div>
-     </div>
+    </div>
 	<!-- /.row -->
 </section>
 <!-- /.content -->

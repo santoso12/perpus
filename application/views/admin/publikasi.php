@@ -42,19 +42,19 @@
 					</form>
 				</div>
 			</div>
-			<table class="table table-bordered" style="margin-bottom: 10px">
+			<table class="table table-bordered table-striped" style="margin-bottom: 10px">
 				<tr>
-			<th>No</th>
-			<th>Id User</th>
-			<th>Id Jenis Publikasi</th>
+			<th style="width:10px;">No</th>
+			<th>User</th>
+			<th>Jenis Publikasi</th>
 			<th>Judul</th>
 			<th>Publisher</th>
-			<th>Tanggal Submission</th>
+			<th>Tgl. Submission</th>
 			<th>Status Draft Artikel</th>
 			<th>Status Verifikasi</th>
-			<th>Is Approved</th>
+			<th>Status Approve</th>
 			<th>Approved Date</th>
-			<th>Create Date</th>
+			<th>Diusulkan</th>
 			
 			<th>Action</th>
 				</tr><?php
@@ -63,12 +63,26 @@
 					?>
 					<tr>
 				<td width="80px"><?php echo ++$start ?></td>
-				<td><?php echo $publikasi_admin->id_user ?></td>
-				<td><?php echo $publikasi_admin->id_jenis_publikasi ?></td>
+				<td><?php
+					$user = $this->db->get_where('user_publikasi', array('id' => $publikasi_admin->id_user))->row();
+					echo $user->nama;
+					?>
+				</td>
+				<td><?php
+					$user = $this->db->get_where('ref_jenis_publikasi', array('id' => $publikasi_admin->id_jenis_publikasi))->row();
+					echo $user->nama;
+					?>
+				</td>
 				<td><?php echo $publikasi_admin->judul ?></td>
 				<td><?php echo $publikasi_admin->publisher ?></td>
 				<td><?php echo $publikasi_admin->tanggal_submission ?></td>
-				<td><?php echo $publikasi_admin->status_draft_artikel ?></td>
+				<td>
+					<?php if($publikasi_admin->status_draft_artikel==1){ 
+						echo "Submited";
+					} else if($publikasi_admin->status_draft_artikel==2) {
+						echo "Accepted"; 
+					}?>
+				</td>
 				<td><?php echo $publikasi_admin->status_verifikasi ?></td>
 				<td>
 					<?php if($publikasi_admin->is_approved==1){ 

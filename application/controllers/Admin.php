@@ -36,7 +36,7 @@ class Admin extends CI_Controller {
             $config['first_url'] = base_url() . 'admin/publikasi.html';
         }
 
-        $config['per_page'] = 10;
+        $config['per_page'] = 20;
         $config['page_query_string'] = TRUE;
         $config['total_rows'] = $this->Publikasi_model->total_rows($q);
         $publikasi_admin = $this->Publikasi_model->get_limit_data($config['per_page'], $start, $q);
