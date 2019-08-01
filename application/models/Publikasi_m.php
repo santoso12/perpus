@@ -6,10 +6,10 @@ class Publikasi_m extends CI_Model {
     private $_table = "publikasi";
 	
 	public $id;
-	public $userid;
+	//public $userid;
 	public $id_user;
 	public $id_jenis_publikasi;
-	public $jenis;
+	//public $jenis;
 	public $judul;
 	public $publisher;
 	public $tanggal_submission;
@@ -19,11 +19,11 @@ class Publikasi_m extends CI_Model {
 	public $approved_date;
 	public $approved_by;
 	public $create_date;
-	public $create_by;
-	public $create_ip;
+	//public $create_by;
+	//public $create_ip;
 	public $update_date;
-	public $update_by;
-	public $update_ip;
+	//public $update_by;
+	//public $update_ip;
 	public $file_name;
 	public $file_path;
 	public $file_url;
@@ -36,10 +36,6 @@ class Publikasi_m extends CI_Model {
         return [
             ['field' => 'judul',
             'label' => 'Judul',
-            'rules' => 'required'],
-
-            ['field' => 'jenis',
-            'label' => 'Jenis',
             'rules' => 'required'],
             
             ['field' => 'publisher',
@@ -73,20 +69,21 @@ class Publikasi_m extends CI_Model {
     {
 		$now = date("Y-m-d H:i:s");
 		
-		$email = $this->session->userdata('email');
-		$user = $this->db->get_where("user", ["username" => $email])->row();
+		$id_user = $this->session->userdata('id_user');
 		
         $post = $this->input->post();
         $this->id_jenis_publikasi = $post["id_jenis_publikasi"];
         $this->judul = $post["judul"];
-        $this->jenis = $post["jenis"];
+        //$this->jenis = $post["jenis"];
         $this->publisher = $post["publisher"];
         $this->tanggal_submission = $post["tanggal_submission"];
         $this->status_draft_artikel = $post["status_draft_artikel"];
         $this->create_date = $now;
-        $this->userid = $user->userid;
-        $this->create_ip = $this->input->ip_address();
-        $this->db->insert($this->_table, $this);
+        $this->id_user = $id_user;
+        //$this->create_ip = $this->input->ip_address();
+		$this->file_name = $this->_uploadFile();
+        $query = $this->db->insert($this->_table, $this);
+		return $query;
     }
 
     public function approve($id)
@@ -113,8 +110,22 @@ class Publikasi_m extends CI_Model {
 		return $query;
     }
 
-    public function delete($id)
-    {
-        return $this->db->delete($this->_table, array("id" => $id));
-    }
+    private function _uploadFile()
+	{
+		$config['upload_path']          = './upload/publikasi/';
+		$config['allowed_types']        = 'pdf|doc|docx|jpg|png';
+		$config['file_name']            = date("Y-m-d").'-'.uniqid();
+		$config['overwrite']			= true;
+		$config['max_size']             = 2048; // 1MB
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('file_publikasi')) {
+			return $this->upload->data("file_name");
+		}
+		
+		return "no file";
+	}
 }

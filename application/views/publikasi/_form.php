@@ -18,7 +18,7 @@
 		<form class="form-horizontal" action="<?php echo site_url('publikasi/create') ?>" method="post" enctype="multipart/form-data">
 		  <div class="box-body">
 			<div class="form-group">
-			  <label class="col-sm-2 control-label">Judul Publikasi*</label>
+			  <label class="col-sm-2 control-label">Judul Publikasi</label>
 
 			  <div class="col-sm-10">
 				<input type="text" name="judul" class="form-control <?php echo form_error('judul') ? 'is-invalid':'' ?>" value="" placeholder="Judul Publikasi">
@@ -40,7 +40,7 @@
 			  <label class="col-sm-2 control-label">Publisher</label>
 
 			  <div class="col-sm-10">
-				<input type="text" name="publisher" class="form-control" placeholder=""  >
+				<input type="text" name="publisher" class="form-control" placeholder="Publisher/Penerbit/Penyelenggara"  >
 			  </div>
 			</div>
 			<div class="form-group">
@@ -55,7 +55,7 @@
 
 			  <div class="col-sm-10">
 				<select name="id_jenis_publikasi" class="form-control">
-					<option value=""></option>
+				<option value="" disabled selected>Jenis Publikasi</option>
 					<?php foreach ($jenis_publikasi as $data) { ?>
 						<option value="<?= $data->id?>"><?= $data->nama?></option>
 					<?php } ?>

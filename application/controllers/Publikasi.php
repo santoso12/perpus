@@ -68,13 +68,23 @@ class Publikasi extends CI_Controller {
         $validation->set_rules($publikasi->rules());
 
         if ($validation->run()) {
-            $publikasi->save();
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
-        }
-		
-		$data['content'] = "publikasi/_form.php";
-		$data['jenis_publikasi'] = $this->ref_jenis_publikasi->get_jenis_publikasi();
-		$this->load->view('template', $data);
+            
+			if($publikasi->save()){
+				$this->session->set_flashdata('msg_sukses', 'Input Success.');
+				redirect('publikasi');
+			}else{
+				$this->session->set_flashdata('msg_gagal', 'Input Gagal.');
+				$data['content'] = "publikasi/_form.php";
+				$data['jenis_publikasi'] = $this->ref_jenis_publikasi->get_jenis_publikasi();
+				echo "gagal save";
+				$this->load->view('template', $data);
+			}
+        } else {
+		echo "gagal validasi";
+			$data['content'] = "publikasi/_form.php";
+			$data['jenis_publikasi'] = $this->ref_jenis_publikasi->get_jenis_publikasi();
+			$this->load->view('template', $data);
+		}
     }
 
    /*  public function edit($id = null)
