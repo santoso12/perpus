@@ -24,12 +24,14 @@ class Publikasi_m extends CI_Model {
 	public $update_date;
 	//public $update_by;
 	//public $update_ip;
-	public $file_name;
-	public $file_path;
+	public $file_submission;
+	public $file_publikasi;
+	public $url_jurnal_seminar;
+	/* public $file_path;
 	public $file_url;
 	public $file_size;
 	public $file_type;
-
+ */
 
     public function rules()
     {
@@ -78,10 +80,12 @@ class Publikasi_m extends CI_Model {
         $this->publisher = $post["publisher"];
         $this->tanggal_submission = $post["tanggal_submission"];
         $this->status_draft_artikel = $post["status_draft_artikel"];
+        $this->url_jurnal_seminar = $post["url_jurnal_seminar"];
         $this->create_date = $now;
         $this->id_user = $id_user;
         //$this->create_ip = $this->input->ip_address();
-		$this->file_name = $this->_uploadFile();
+		$this->file_submission = $this->_uploadFileSubmission();
+		$this->file_publikasi = $this->_uploadFile();
         $query = $this->db->insert($this->_table, $this);
 		return $query;
     }
@@ -116,16 +120,35 @@ class Publikasi_m extends CI_Model {
 		$config['allowed_types']        = 'pdf|doc|docx|jpg|png';
 		$config['file_name']            = date("Y-m-d").'-'.uniqid();
 		$config['overwrite']			= true;
-		$config['max_size']             = 2048; // 1MB
-		// $config['max_width']            = 1024;
-		// $config['max_height']           = 768;
+		$config['max_size']             = 2048; // 2MB
 
-		$this->load->library('upload', $config);
+		$this->load->library('upload', $config, 'publikasi');
+		$this->publikasi->initialize($config);
+		$upload_publikasi= $this->publikasi->do_upload('file_publikasi');
 
-		if ($this->upload->do_upload('file_publikasi')) {
-			return $this->upload->data("file_name");
+		if ($upload_publikasi) {
+			return $this->publikasi->data("file_name");
 		}
 		
-		return "no file";
+		return "";
+	}
+	
+    private function _uploadFileSubmission()
+	{
+		$config['upload_path']          = './upload/submission/';
+		$config['allowed_types']        = 'pdf|doc|docx|jpg|png';
+		$config['file_name']            = date("Y-m-d").'-'.uniqid();
+		$config['overwrite']			 = true;
+		$config['max_size']             = 2048; // 2MB
+
+		$this->load->library('upload', $config, 'submission');
+		$this->submission->initialize($config);
+		$upload_submission= $this->submission->do_upload('file_submission');
+
+		if ($upload_submission) {
+			return $this->submission->data("file_name");
+		}
+		
+		return "";
 	}
 }

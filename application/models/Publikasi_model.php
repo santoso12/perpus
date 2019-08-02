@@ -33,8 +33,6 @@ class Publikasi_model extends CI_Model
     function total_rows($q = NULL) {
         $this->db->like('id', $q);
 	$this->db->or_like('id_user', $q);
-	$this->db->or_like('userid', $q);
-	$this->db->or_like('id_jenis_publikasi', $q);
 	$this->db->or_like('id_kategori_publikasi', $q);
 	$this->db->or_like('judul', $q);
 	$this->db->or_like('publisher', $q);
@@ -45,16 +43,9 @@ class Publikasi_model extends CI_Model
 	$this->db->or_like('approved_date', $q);
 	$this->db->or_like('approved_by', $q);
 	$this->db->or_like('create_date', $q);
-	$this->db->or_like('create_by', $q);
-	$this->db->or_like('create_ip', $q);
 	$this->db->or_like('update_date', $q);
-	$this->db->or_like('update_by', $q);
-	$this->db->or_like('update_ip', $q);
-	$this->db->or_like('file_name', $q);
-	$this->db->or_like('file_path', $q);
-	$this->db->or_like('file_url', $q);
-	$this->db->or_like('file_size', $q);
-	$this->db->or_like('file_type', $q);
+	$this->db->or_like('file_publikasi', $q);
+	$this->db->or_like('file_submission', $q);
 	$this->db->or_like('url_jurnal_seminar', $q);
 	$this->db->from($this->table);
         return $this->db->count_all_results();
@@ -65,9 +56,7 @@ class Publikasi_model extends CI_Model
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
 	$this->db->or_like('id_user', $q);
-	$this->db->or_like('userid', $q);
 	$this->db->or_like('id_jenis_publikasi', $q);
-	$this->db->or_like('id_kategori_publikasi', $q);
 	$this->db->or_like('judul', $q);
 	$this->db->or_like('publisher', $q);
 	$this->db->or_like('tanggal_submission', $q);
@@ -77,16 +66,9 @@ class Publikasi_model extends CI_Model
 	$this->db->or_like('approved_date', $q);
 	$this->db->or_like('approved_by', $q);
 	$this->db->or_like('create_date', $q);
-	$this->db->or_like('create_by', $q);
-	$this->db->or_like('create_ip', $q);
 	$this->db->or_like('update_date', $q);
-	$this->db->or_like('update_by', $q);
-	$this->db->or_like('update_ip', $q);
-	$this->db->or_like('file_name', $q);
-	$this->db->or_like('file_path', $q);
-	$this->db->or_like('file_url', $q);
-	$this->db->or_like('file_size', $q);
-	$this->db->or_like('file_type', $q);
+	$this->db->or_like('file_publikasi', $q);
+	$this->db->or_like('file_submission', $q);
 	$this->db->or_like('url_jurnal_seminar', $q);
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();

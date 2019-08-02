@@ -46,14 +46,14 @@
 			<div class="form-group">
 			  <label class="col-sm-2 control-label">Tanggal Submission</label>
 
-			  <div class="col-sm-10">
+			  <div class="col-sm-4">
 				<input type="date" class="form-control" name="tanggal_submission" value="" placeholder="" >
 			  </div>
 			</div>
 			<div class="form-group">
 			  <label class="col-sm-2 control-label">Jenis Publikasi</label>
 
-			  <div class="col-sm-10">
+			  <div class="col-md-4">
 				<select name="id_jenis_publikasi" class="form-control">
 				<option value="" disabled selected>Jenis Publikasi</option>
 					<?php foreach ($jenis_publikasi as $data) { ?>
@@ -63,13 +63,21 @@
 			  </div>
 			</div>
 			<div class="form-group">
-			  <label class="col-sm-2 control-label">Status Draft Artikel</label>
+			  <label class="col-md-2 control-label">Status Draft Artikel</label>
 
-			  <div class="col-sm-10">
+			  <div class="col-md-4">
 				<select name="status_draft_artikel" class="form-control">
 					<option value="1">Submitted</option>
 					<option value="2">Accepted</option>
 				</select>
+			  </div>
+			</div>
+			
+			<div class="form-group">
+			  <label class="col-sm-2 control-label">Url Jurnal/Seminar</label>
+
+			  <div class="col-sm-10">
+				<input type="text" name="url_jurnal_seminar" class="form-control" placeholder="Url Jurnal/Seminar"  >
 			  </div>
 			</div>
 			
@@ -85,7 +93,7 @@
 			  <label class="col-sm-2 control-label">Upload File Publikasi</label>
 
 			  <div class="col-sm-10">
-				<input type="file" name="file_publikasi" class="form-control" placeholder=""  >
+				<input type="file" name="file_publikasi" class="form-control" placeholder=""  required>
 			  </div>
 			</div>
 			

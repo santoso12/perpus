@@ -76,11 +76,11 @@ class Publikasi extends CI_Controller {
 				$this->session->set_flashdata('msg_gagal', 'Input Gagal.');
 				$data['content'] = "publikasi/_form.php";
 				$data['jenis_publikasi'] = $this->ref_jenis_publikasi->get_jenis_publikasi();
-				echo "gagal save";
+				//echo "gagal save";
 				$this->load->view('template', $data);
 			}
         } else {
-		echo "gagal validasi";
+		//echo "gagal validasi";
 			$data['content'] = "publikasi/_form.php";
 			$data['jenis_publikasi'] = $this->ref_jenis_publikasi->get_jenis_publikasi();
 			$this->load->view('template', $data);
