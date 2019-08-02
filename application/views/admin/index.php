@@ -52,7 +52,7 @@
 						Alamat
 					</div>
 					<div class="col-sm-10">
-						: <?php echo $account->alamat; ?>
+						: <?php if($account->alamat){ echo $account->alamat;} else {echo "-";} ?>
 					</div>
 				</div>
 				<div class="box-footer">

@@ -106,13 +106,47 @@ class Publikasi extends CI_Controller {
         $this->load->view("admin/product/edit_form", $data);
     } */
 	
-	public function view($id = null){
+	/* public function view($id = null){
 		
 		$id_user = $this->session->userdata('id_user');
 		
 		$data["publikasi"] = $publikasi_m->getById($id);
 		
-	}
+	} */
+	public function view($id) 
+    {
+        $row = $this->publikasi_m->getById($id);
+        if ($row) {
+            $data = array(
+		'id' => $row->id,
+		'id_user' => $row->id_user,
+		'id_jenis_publikasi' => $row->id_jenis_publikasi,
+		'id_kategori_publikasi' => $row->id_kategori_publikasi,
+		'judul' => $row->judul,
+		'publisher' => $row->publisher,
+		'tanggal_submission' => $row->tanggal_submission,
+		'status_draft_artikel' => $row->status_draft_artikel,
+		'status_verifikasi' => $row->status_verifikasi,
+		'is_approved' => $row->is_approved,
+		'approved_date' => $row->approved_date,
+		'approved_by' => $row->approved_by,
+		'create_date' => $row->create_date,
+		//'create_by' => $row->create_by,
+		//'create_ip' => $row->create_ip,
+		'update_date' => $row->update_date,
+		//'update_by' => $row->update_by,
+		//'update_ip' => $row->update_ip,
+		'file_publikasi' => $row->file_publikasi,
+		'file_submission' => $row->file_submission,
+		'url_jurnal_seminar' => $row->url_jurnal_seminar,
+		'content' => 'publikasi/detail-publikasi',
+	    );
+            $this->load->view('template', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('publikasi'));
+        }
+    }
 
    /*  public function delete($id=null)
     {

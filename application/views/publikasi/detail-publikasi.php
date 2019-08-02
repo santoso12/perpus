@@ -38,10 +38,10 @@
 					<td>Status Draft Artikel</td>
 					<td>
 						<?php if($status_draft_artikel==1){ 
-						echo "Submited";
-					} else if($status_draft_artikel==2) {
-						echo "Accepted"; 
-					}?>
+							echo "Submited";
+						} else if($status_draft_artikel==2) {
+							echo "Accepted"; 
+						}?>
 					</td>
 				</tr>
 				<tr><td>Status Verifikasi</td><td><?php echo $status_verifikasi; ?></td></tr>
@@ -56,16 +56,7 @@
 					</td>
 				</tr>
 				<tr><td>Approved Date</td><td><?php echo $approved_date; ?></td></tr>
-				<tr><td>Approved By</td>
-					<td>
-						<?php
-						$user = $this->db->get_where('user_publikasi', array('id' => $approved_by))->row();
-						echo $user->nama;
-						?>
-					</td>
-				</tr>
 				<tr><td>Create Date</td><td><?php echo $create_date; ?></td></tr>
-				<tr><td>Update Date</td><td><?php echo $update_date; ?></td></tr>
 				<tr>
 					<td>Url Jurnal Seminar</td>
 					<td>
@@ -82,11 +73,7 @@
 				</tr>
 				<tr><td></td>
 					<td>
-						<a href="<?php echo site_url('admin/publikasi') ?>" class="btn btn-default">Cancel</a>
-						
-						<a href="<?php echo site_url('admin/approve/') . $id; ?>" class="btn btn-primary">Approve</a>
-						
-						<a href="<?php echo site_url('admin/tolak/') . $id; ?>" class="btn btn-warning">Tolak</a>
+						<a href="<?php echo site_url('publikasi') ?>" class="btn btn-default">Kembali</a>
 					</td>
 				</tr>
 			</table>
